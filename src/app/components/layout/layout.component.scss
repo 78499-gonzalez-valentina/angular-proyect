@@ -1,0 +1,38 @@
+.layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+main {
+  flex: 1;
+  overflow-y: auto;
+}
+
+mat-sidenav-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+  /* Ajusta el tamaño de la barra lateral */
+  position: fixed;
+  /* Fija la barra lateral */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+mat-sidenav-content {
+  margin-left: 250px;
+  /* Deja espacio para la barra lateral */
+  padding: 20px;
+}

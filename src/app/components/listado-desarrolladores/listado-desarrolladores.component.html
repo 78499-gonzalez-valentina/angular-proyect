@@ -1,0 +1,55 @@
+<div style="display: flex; justify-content: end;">
+<button mat-raised-button style="color: #3B2229; margin-right: 85px; margin-bottom: 20px; background-color: #D6CFC7" 
+  (click)="openRegistrarDialog()">
+  Registrar Desarrollador
+</button>
+</div>
+<mat-table style="width: 600px;" [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Position Column -->
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef> Email</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="rol">
+    <mat-header-cell *matHeaderCellDef> Rol</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.rol}} </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="fechaContratacion">
+    <mat-header-cell *matHeaderCellDef> Fecha de contratación </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.fechaContratacion}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="acciones">
+    <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+    <mat-cell *matCellDef="let element"> 
+      <button  style="margin: 5px; background-color: #D6CFC7;" mat-mini-fab matTooltip="Visualizar"
+        aria-label="Button that displays a tooltip when focused or hovered over">
+        <mat-icon style="margin: 5px; color: #3B2229">visibility</mat-icon>
+      </button>
+      <button style="margin: 5px; background-color: #D6CFC7" mat-mini-fab matTooltip="Editar"
+        aria-label="Button that displays a tooltip when focused or hovered over">
+      <mat-icon style="margin: 5px; color: #3B2229;">edit</mat-icon>
+      </button>
+    <button style="margin: 5px; background-color: #D6CFC7" mat-mini-fab matTooltip="Eliminar"
+      aria-label="Button that displays a tooltip when focused or hovered over" (click)="deleteElement(element)">
+      <mat-icon color="warn" style="margin: 5px; ">delete</mat-icon>
+    </button>
+      
+      
+      
+    
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

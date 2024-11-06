@@ -1,0 +1,28 @@
+.custom-button {
+  background-color: transparent;
+  color: white;
+  border: 2px solid transparent;
+  /* Borde invisible, puede cambiarse si lo deseas */
+  border-radius: 30%;
+  /* Botón redondeado */
+  margin: 6px;
+  margin-left: 20px;
+  padding: 10px;
+  /* Espacio alrededor del ícono */
+  transition: background-color 0.3s, transform 0.3s;
+  /* Transiciones suaves */
+}
+
+.custom-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  /* Fondo suave en hover */
+  transform: scale(1.1);
+  /* Aumento de tamaño en hover */
+}
+
+.custom-button:focus {
+  outline: none;
+  /* Elimina el borde de enfoque por defecto */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  /* Sombra brillante cuando está enfocado */
+}
