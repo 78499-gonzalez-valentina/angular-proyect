@@ -1,0 +1,29 @@
+<h2 mat-dialog-title style="font-size: 25px; color: #3d3d3d;">Editar perfil</h2>
+<mat-dialog-content>
+  <form [formGroup]="editForm">
+    <mat-form-field style="margin: 5px; " appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre">
+    </mat-form-field>
+
+    <mat-form-field  style="margin: 5px; " appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field style="margin: 5px; " appearance="outline">
+      <mat-label>Rol</mat-label>
+      <input matInput formControlName="rol">
+    </mat-form-field>
+
+    <mat-form-field style="margin: 5px; " appearance="outline">
+      <mat-label>Fecha de Contratación</mat-label>
+      <input matInput formControlName="fechaContratacion" type="date">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions >
+  <button mat-button  style="color: #3B2229" (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button style="color: #3B2229" (click)="onSave()" [disabled]="editForm.invalid">Guardar</button>
+</mat-dialog-actions>
+

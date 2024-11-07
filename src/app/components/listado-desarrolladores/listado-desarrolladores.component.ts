@@ -9,6 +9,7 @@ import { RegistrarDesarrolladorDialogComponent } from '../registrar-desarrollado
 import { MatDialog } from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { EditarDesarrolladorComponent } from '../editar-desarrollador/editar-desarrollador.component';
 
 export interface Developers {
   nombre: string;
@@ -37,7 +38,7 @@ const ELEMENT_DATA: Developers[] = [
   styleUrl: './listado-desarrolladores.component.scss',
   templateUrl: './listado-desarrolladores.component.html',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, RegistrarDesarrolladorDialogComponent, MatTooltipModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, RegistrarDesarrolladorDialogComponent, MatTooltipModule, MatButtonModule, EditarDesarrolladorComponent],
 })
 export class ListadoDesarrolladoresComponent implements AfterViewInit {
   displayedColumns: string[] = ['nombre', 'email', 'rol', 'fechaContratacion', 'acciones'];
@@ -74,5 +75,23 @@ export class ListadoDesarrolladoresComponent implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openEditDialog(element: any): void {
+    const dialogRef = this.dialog.open(EditarDesarrolladorComponent, {
+      width: '600px',
+      data: { ...element }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Actualizar el elemento en el dataSource con los datos editados
+        const index = this.dataSource.data.findIndex(item => item === element);
+        if (index !== -1) {
+          this.dataSource.data[index] = result;
+          this.dataSource = new MatTableDataSource(this.dataSource.data); // Refrescar la tabla
+        }
+      }
+    });
   }
 }

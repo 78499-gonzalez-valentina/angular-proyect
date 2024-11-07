@@ -1,20 +1,24 @@
 
 <div style="display: flex; justify-content:space-between;">
-  <mat-form-field appearance="outline" style="margin-left: 40px;">
-    <mat-label>Buscar</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Mia" #input>
-  </mat-form-field>
+  <div style="display: flex; flex-direction: row;">
+    <p style="margin-left: 50px; font-size: 25px;">Desarrolladores</p>
+    <mat-form-field appearance="outline" style="margin-left: 40px;">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Mia" #input>
+    </mat-form-field>
+  </div>
+  
   <button mat-raised-button style="color: #3B2229; height: 50px; margin-right: 85px; margin-bottom: 20px; background-color: #D6CFC7"
     (click)="openRegistrarDialog()">
     Registrar Desarrollador
   </button>
 </div>
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8" style="width: 1250px; margin: 0 auto;">
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- ID Column -->
     <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Nombre </th>
       <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
     </ng-container>
 
@@ -36,15 +40,15 @@
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
         <td  mat-cell *matCellDef="let element">
-          <button mat-mini-fab style="margin: 5px; background-color: #D6CFC7;"  matTooltip="Visualizar"
+          <button mat-mini-fab style="margin: 5px; background-color: transparent;"  matTooltip="Visualizar"
             aria-label="Button that displays a tooltip when focused or hovered over">
             <mat-icon style="margin: 5px; color: #3B2229">visibility</mat-icon>
           </button>
-          <button style="margin: 5px; background-color: #D6CFC7" mat-mini-fab matTooltip="Editar"
-            aria-label="Button that displays a tooltip when focused or hovered over">
+          <button style="margin: 5px; background-color: transparent" mat-mini-fab matTooltip="Editar"
+            aria-label="Button that displays a tooltip when focused or hovered over"  (click)="openEditDialog(element)">
             <mat-icon style="margin: 5px; color: #3B2229;">edit</mat-icon>
           </button>
-          <button style="margin: 5px; background-color: #D6CFC7" mat-mini-fab matTooltip="Eliminar"
+          <button style="margin: 5px; background-color: transparent" mat-mini-fab matTooltip="Eliminar"
             aria-label="Button that displays a tooltip when focused or hovered over" (click)="deleteElement(element)">
             <mat-icon color="warn" style="margin: 5px; ">delete</mat-icon>
           </button>

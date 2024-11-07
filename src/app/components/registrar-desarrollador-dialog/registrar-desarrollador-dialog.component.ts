@@ -38,7 +38,7 @@ import {MatInputModule} from '@angular/material/input';
         </mat-form-field>
       </form>
     </div>
-    <div mat-dialog-actions>
+    <div mat-dialog-actions >
       <button  style="color: #3B2229" mat-button (click)="onCancel()">Cancelar</button>
       <button  style="color: #3B2229" mat-raised-button (click)="onSave()" [disabled]="form.invalid">Guardar</button>
     </div>
