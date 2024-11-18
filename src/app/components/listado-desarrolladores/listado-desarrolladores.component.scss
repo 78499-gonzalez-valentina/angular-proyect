@@ -1,0 +1,28 @@
+.example-card {
+  margin-bottom: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.example-card-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+mat-chip {
+  margin: 5px;
+}
+
+.filter-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.filter-container button {
+  font-weight: bold;
+  text-transform: uppercase;
+}

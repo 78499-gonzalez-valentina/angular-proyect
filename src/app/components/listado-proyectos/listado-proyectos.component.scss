@@ -1,0 +1,121 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 50px;
+  /* Esto permite que las tarjetas se ajusten a nuevas filas */
+  gap: 16px;
+  /* Espaciado entre las tarjetas */
+}
+.additional-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
+.mas-info{
+  display: flex;
+  flex-direction: row;
+}
+
+.project-card {
+  flex: 1 1 500px;
+  /* Cada tarjeta ocupará al menos 300px, y crecerá si hay más espacio */
+  max-width: 600px;
+  margin: 10px;
+  padding: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
+  /* Limita el ancho máximo de cada tarjeta */
+}
+.title{
+  margin-bottom: 20px;
+}
+
+.subtitle{
+  margin-bottom: 20px;
+}
+
+.status{
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+mat-card {
+  margin-top: 20px;
+}
+
+mat-table {
+  width: 100%;
+}
+
+
+.date-info {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.additional-info {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.info-btn {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  text-transform: none;
+  border: none;
+  background-color: beige;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.status-btn {
+  margin-left: 200px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color:#E8F5E9
+}
+/* Estado: En progreso */
+.in-progress {
+  background-color: #FFB74D;
+  /* Naranja suave */
+}
+
+/* Estado: Completado */
+.completed {
+  background-color: #66BB6A;
+  /* Verde suave */
+}
+
+/* Estado: Planificación */
+.planning {
+  background-color: #42A5F5;
+  /* Azul suave */
+}
+
+.more-btn {
+  margin-left: auto;
+  border: none;
+  border-radius: 10px;
+}
+
+.btnFiltro{
+border-color: #D6CFC7;
+border-radius: 10px;
+padding: 10px;
+margin-right: 10px;
+margin-left: 50px;
+margin-bottom: 10px;
+font-size: 20px;
+background-color: white;
+}

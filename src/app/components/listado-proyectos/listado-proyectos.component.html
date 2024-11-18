@@ -1,1 +1,70 @@
-<p>listado-proyectos works!</p>
+<div class="filter-container">
+  <button class="btnFiltro" mat-button [matMenuTriggerFor]="filterMenu">
+    Filtros <mat-icon>filter_list</mat-icon>
+  </button>
+
+  <mat-menu #filterMenu="matMenu">
+    <button mat-menu-item (click)="filterProjects('Todos')">
+      Todos
+    </button>
+    <button mat-menu-item (click)="filterProjects('En progreso')">
+      En progreso
+    </button>
+    <button mat-menu-item (click)="filterProjects('Completado')">
+      Completado
+    </button>
+    <button mat-menu-item (click)="filterProjects('Planificación')">
+      Planificación
+    </button>
+  </mat-menu>
+
+  <mat-form-field appearance="outline" style="width: 300px;">
+    <mat-label>Buscar proyecto</mat-label>
+    <input matInput (keyup)="searchProject($event)" placeholder="Nombre del proyecto">
+  </mat-form-field>
+</div>
+<div class="projects-container">
+    <mat-card *ngFor="let project of filteredProjects" class="project-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title class="title">{{ project.name }}</mat-card-title>
+      <mat-card-subtitle class="subtitle">{{ project.description }}</mat-card-subtitle>
+      <div>
+        <button mat-flat-button [ngClass]="{
+                  'in-progress': project.status === 'En progreso',
+                  'completed': project.status === 'Completado',
+                  'planning': project.status === 'Planificación'
+                }" class="status-btn">
+          {{ project.status }}
+        </button>
+      </div>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <div class="date-info">
+        <mat-chip class="start-date">Inicio: {{ project.startDate }}</mat-chip>
+        <mat-chip class="end-date">Fin: {{ project.endDate }}</mat-chip>
+      </div>
+      <div class="additional-info">
+        <div class="mas-info">
+          <button mat-fab extended class="info-btn">
+            <mat-icon>group</mat-icon>
+            {{ project.developers }} Desarrolladores
+          </button>
+          <button mat-fab extended class="info-btn">
+            <mat-icon>task</mat-icon>
+            {{ project.tasks }} Tareas
+          </button>
+        </div>
+        
+        
+
+        <button mat-icon-button class="more-btn"  matTooltip="Ver más detalles">
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+      
+    </mat-card-content>
+  
+  </mat-card>
+
+</div>

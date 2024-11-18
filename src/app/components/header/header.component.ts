@@ -16,7 +16,8 @@ export class HeaderComponent {
   menuItems = [{name:'Inicio', route:'/', icon:'home'},
     {name:'Desarrolladores', route:'desarrolladores', icon:'person'},
       {name:'Proyectos', route:'proyectos', icon:'library_books'},
-      {name:'Tareas', route:'tareas', icon:'task'}]
+      {name:'Tareas', route:'tareas', icon:'task'},
+     {name:'Métricas', route:'metricas', icon:'bar_chart'}]
   menu: boolean = false;
 
   abrirMenu(){
