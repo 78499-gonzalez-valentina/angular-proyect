@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 
 interface Project {
   id: number;
@@ -32,6 +34,8 @@ interface Project {
     MatMenuModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTooltipModule,
+    
     ],
   templateUrl: './listado-proyectos.component.html',
   styleUrl: './listado-proyectos.component.scss'
@@ -45,6 +49,7 @@ export class ListadoProyectosComponent {
     { id: 4, name: 'Migración a la nube', description: 'Trasladar infraestructura a AWS', status: 'En progreso', startDate: '2023-03-01', endDate: '2023-08-31',  developer:'Juan',  developers:5, tasks:4},
   ];
 
+  constructor(private router: Router) { }
    filteredProjects = this.projects;
 
   // Método para filtrar proyectos por estado
@@ -62,4 +67,8 @@ export class ListadoProyectosComponent {
     project.name.toLowerCase().includes(input)
   );
 }
+
+goToProyecto() {
+    this.router.navigate(['/proyecto']);
+  }
 }

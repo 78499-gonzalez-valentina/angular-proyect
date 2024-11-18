@@ -1,0 +1,47 @@
+.title{
+  margin-left: 50px;
+}
+
+.info-proyecto{
+  display: flex;
+  flex-direction: row;
+}
+
+.end-date{
+  margin-left: 5px;
+}
+
+.desarrolladores-proyecto{
+  width: 500px;
+  height: 300px;
+  margin-top: 30px;
+  margin-left: 100px;
+}
+
+.tareas-proyecto{
+  width: 500px;
+  height: 300px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.header{
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-agregar{
+  border: 1px #3d3d3d solid;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: beige;
+ &::hover{
+  background-color: #f7f7f7;
+ }
+}
+
+.tarea{
+  margin: 10px;
+  height: 50px;
+
+}

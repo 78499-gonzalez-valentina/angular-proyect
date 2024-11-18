@@ -6,6 +6,7 @@ import { ListadoProyectosComponent } from './components/listado-proyectos/listad
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ListadoTareasComponent } from './components/listado-tareas/listado-tareas.component';
 import { MetricasComponent } from './components/metricas/metricas.component';
+import { ProyectoComponent } from './components/proyecto/proyecto.component';
 
 export const routes: Routes = [
 
@@ -28,7 +29,8 @@ export const routes: Routes = [
       {path:'metricas',
       component: MetricasComponent,
       },
-
+      {path:'proyecto',
+      component: ProyectoComponent},
 
     ]
   },
