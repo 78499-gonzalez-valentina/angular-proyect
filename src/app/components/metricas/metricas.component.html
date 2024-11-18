@@ -1,2 +1,53 @@
-<p>metricas works!</p>
-<h1>HOLAAAAAAA</h1>
+<mat-card class="metric-card">
+  <mat-card-header>
+    <mat-card-title class="title">Métricas</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="mat-card-content">
+    <div class="metric-container">
+      <mat-card class="metric-item">
+        <mat-card-header>
+          <mat-card-title>Total de Proyectos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ totalProjects }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="metric-item">
+        <mat-card-header>
+          <mat-card-title>Proyectos Completados</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ completedProjects }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="metric-item">
+        <mat-card-header>
+          <mat-card-title>Tareas Pendientes</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ pendingTasks }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="metric-item">
+        <mat-card-header>
+          <mat-card-title>Desarrolladores Activos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ activeDevelopers }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="metric-item">
+        <mat-card-header>
+          <mat-card-title>Promedio de Tareas por Proyecto</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ avgTasksPerProject.toFixed(2) }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>
