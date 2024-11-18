@@ -4,6 +4,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ListadoDesarrolladoresComponent } from './components/listado-desarrolladores/listado-desarrolladores.component';
 import { ListadoProyectosComponent } from './components/listado-proyectos/listado-proyectos.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ListadoTareasComponent } from './components/listado-tareas/listado-tareas.component';
+import { MetricasComponent } from './components/metricas/metricas.component';
 
 export const routes: Routes = [
 
@@ -21,8 +23,12 @@ export const routes: Routes = [
       component: ListadoProyectosComponent,
       },
       {path:'tareas',
-      component: ListadoProyectosComponent,
-      }
+      component: ListadoTareasComponent,
+      },
+      {path:'metricas',
+      component: MetricasComponent,
+      },
+
 
     ]
   },

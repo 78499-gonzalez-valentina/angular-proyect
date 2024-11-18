@@ -5,12 +5,18 @@ import { ListadoDesarrolladoresComponent } from "../listado-desarrolladores/list
 import { RouterLink, RouterOutlet } from '@angular/router';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, ListadoDesarrolladoresComponent, RouterLink, RouterOutlet, MatSidenavModule,  MatButtonModule],
+  imports: [HeaderComponent, FooterComponent, ListadoDesarrolladoresComponent, RouterLink, RouterOutlet, MatSidenavModule,  MatButtonModule, MatListModule, MatIconModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatDialogModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
