@@ -83,23 +83,27 @@ mat-table {
   padding: 10px;
   border: none;
   border-radius: 10px;
-  background-color:#E8F5E9
+  width: 180px;
+  color: #3d3d3d;
 }
 /* Estado: En progreso */
 .in-progress {
   background-color: #FFB74D;
+  box-shadow: 0 4px 8px rgba(241, 162, 59, 0.9);
   /* Naranja suave */
 }
 
 /* Estado: Completado */
 .completed {
   background-color: #66BB6A;
+  box-shadow: 0 4px 8px rgba(195, 240, 201, 0.9);
   /* Verde suave */
 }
 
 /* Estado: Planificación */
 .planning {
   background-color: #42A5F5;
+  box-shadow: 0 4px 8px rgba(173, 185, 255, 0.9);
   /* Azul suave */
 }
 

@@ -1,0 +1,136 @@
+
+
+.additional-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.tasks-container{
+ margin-left: 40px;
+ margin-right: 40px;
+}
+
+.task-card {
+  margin: 20px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Añadir sombra a la tarjeta */
+  transition: box-shadow 0.3s ease-in-out;
+  /* Transición suave para la sombra */
+  border: none;
+  /* Eliminar borde */
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Sombra más intensa al pasar el mouse */
+  }
+
+  &.rounded-none {
+    border-radius: 0;
+    /* Asegurar que no tenga bordes redondeados */
+  }
+}
+
+.title{
+  margin-bottom: 10px;
+}
+
+.subtitle{
+  margin-bottom: 25px;
+}
+
+.date-info {
+  margin-bottom: 20px;
+}
+.deadline{
+  margin-right: 5px;
+}
+ .info-chip {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+  /* Fondo gris claro */
+  padding: 5px 5px;
+  color: #3d3d3d !important;
+  /* Color del texto oscuro */
+  border: none !important;
+  font-weight: 600;
+  /* Texto más prominente */
+  margin-right: 8px;
+  /* Espacio entre el chip y el texto siguiente */
+  vertical-align: middle;
+  border-radius: 16px;
+  /* Borde redondeado para que parezca un chip */
+}
+.project-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.developer-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header{
+display: flex;
+  /* Configura el contenedor como Flexbox */
+  justify-content: space-between;
+  /* Coloca los elementos en extremos opuestos (izquierda y derecha) */
+  align-items: center;
+  /* Alinea verticalmente los elementos al centro */
+  padding: 10px;
+}
+.status-btn {
+
+  padding: 5px;
+    width: 150px;
+    /* Ajustar el ancho automáticamente según el contenido */
+    height: 28px;
+    border: none;
+    border-radius: 30px;
+    color: #3d3d3d;
+    font-weight: 500;
+    font-size: 15px;
+    display: flex;
+    /* Usar Flexbox para centrar el contenido del botón */
+    justify-content: center;
+    /* Centrar horizontalmente el contenido */
+    align-items: center;
+    /* Centrar verticalmente el contenido */
+    text-align: center;
+    margin-left: auto;
+    
+
+  &.pendiente {
+      background-color: #FFB74D;
+      box-shadow: 0 4px 8px rgba(241, 162, 59, 0.9);
+    }
+  
+    &.en-curso {
+     
+    }
+  
+    &.completado {
+      background-color: #66BB6A;
+      box-shadow: 0 4px 8px rgba(195, 240, 201, 0.9);
+    }
+  
+    &.otro-estado {
+      background-color: #42A5F5;
+        box-shadow: 0 4px 8px rgba(173, 185, 255, 0.9);
+    }
+}
+
+.btnFiltro {
+  border-color: #D6CFC7;
+  border-radius: 10px;
+  padding: 10px;
+  margin-right: 10px;
+  margin-left: 50px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  background-color: white;
+}

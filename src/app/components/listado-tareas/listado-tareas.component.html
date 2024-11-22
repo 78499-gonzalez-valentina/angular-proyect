@@ -1,1 +1,61 @@
-<p>listado-tareas works!</p>
+<div class="filter-container">
+  <button class="btnFiltro" mat-button [matMenuTriggerFor]="filterMenu">
+    Filtros <mat-icon>filter_list</mat-icon>
+  </button>
+
+  <mat-menu #filterMenu="matMenu">
+    <button mat-menu-item (click)="filterTasks('Todos')">Todos</button>
+    <button mat-menu-item (click)="filterTasks('Pendiente')">Pendiente</button>
+    <button mat-menu-item (click)="filterTasks('En curso')">En curso</button>
+    <button mat-menu-item (click)="filterTasks('Completado')">Completado</button>
+  </mat-menu>
+
+  <mat-form-field appearance="outline" style="width: 300px;">
+    <mat-label>Buscar tarea</mat-label>
+    <input matInput (keyup)="searchTask($event)" placeholder="Título de la tarea">
+  </mat-form-field>
+</div>
+
+<div class="tasks-container">
+  <mat-card *ngFor="let task of filteredTasks" class="task-card" appearance="outlined">
+    <mat-card-header class="header">
+      <div>
+        <mat-card-title class="title">{{ task.title }}</mat-card-title>
+        
+      </div>
+      
+      <div class="status-btn" [ngClass]="{
+                'pendiente': task.status.name.toLowerCase() === 'pendiente',
+                'en-curso': task.status.name.toLowerCase() === 'en curso',
+                'completado': task.status.name.toLowerCase() === 'completado',
+                'otro-estado': task.status.name.toLowerCase() !== 'pendiente' &&
+                               task.status.name.toLowerCase() !== 'en progreso' &&
+                               task.status.name.toLowerCase() !== 'completado'
+              }">
+        {{ task.status.name }}
+      </div>
+
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-card-subtitle class="subtitle">{{ task.description }}</mat-card-subtitle>
+      <div class="date-info">
+        <mat-chip class="deadline">Fecha límite: {{ task.deadline | date }}</mat-chip>
+        <mat-chip class="creation-date">Creado: {{ task.creationDate | date }}</mat-chip>
+      </div>
+
+      <div class="additional-info">
+        <div class="project-info">
+          <p class="info-chip" >Proyecto</p>
+          <span class="font-medium">{{ task.project.name }} ({{ task.project.description }})</span>
+        </div>
+        
+        <div class="developer-info">
+          <p class="info-chip" >Desarrollador</p>
+          <span class="font-medium">{{ task.developer.name }} ({{ task.developer.email }})</span>
+        </div>
+       
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
