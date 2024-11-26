@@ -10,6 +10,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { ApiService } from '../../api.service';
 import { Project, Developers, Task } from '../../models/interfaces';
+import { RegistrarProyectoDialogComponent } from '../registrar-proyecto-dialog/registrar-proyecto-dialog.component';
+import {  MatDialogModule, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-listado-proyectos',
@@ -23,6 +25,7 @@ import { Project, Developers, Task } from '../../models/interfaces';
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatDialogModule
   ],
   templateUrl: './listado-proyectos.component.html',
   styleUrls: ['./listado-proyectos.component.scss']
@@ -31,7 +34,7 @@ export class ListadoProyectosComponent implements OnInit {
   projects: Project[] = [];
   filteredProjects: Project[] = [];
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(private router: Router, private apiService: ApiService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getProjects();
@@ -122,7 +125,29 @@ getProjects(): void {
     );
   }
 
-  goToProyecto(id: number): void {
-    this.router.navigate([`/proyecto/${id}`]); // Navegar a la ruta del proyecto específico
+  goToProyecto(idProyecto: number): void {
+  this.router.navigate(['/proyectos', idProyecto]);
+}
+
+  openRegistrarDialog(): void {
+    const dialogRef = this.dialog.open(RegistrarProyectoDialogComponent, {
+      width: '700px',
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => { // Especifica el tipo de `result`
+      if (result) {
+        console.log('Datos enviados al backend:', result);
+        this.apiService.createProject(result).subscribe(
+          (response) => {
+            console.log('Proyecto registrado:', response);
+            this.projects.push(response); // Agrega el nuevo proyecto a la lista
+          },
+          (error) => {
+            console.error('Error al registrar el proyecto:', error);
+          }
+        );
+      }
+    });
   }
 }
+

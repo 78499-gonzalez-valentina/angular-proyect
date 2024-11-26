@@ -1,47 +1,78 @@
-.title{
-  margin-left: 50px;
-}
-
-.info-proyecto{
+.project-container {
+  margin: 10px auto;
+  padding: 20px;
+  max-width: 800px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 20px;
+
+  .project-header {
+    text-align: center;
+    margin-bottom: 20px;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+    }
+  }
+
+  .project-info {
+    display: flex;
+    gap: 20px;
+
+    .project-dates,
+    .project-responsable {
+      flex: 1;
+      background-color: beige;
+      padding: 10px;
+    }
+  }
+
+  .project-section {
+    background-color: beige;
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+    }
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .task,
+      .developer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: beige;
+        border-radius: 5px;
+        padding: 10px;
+
+        mat-icon {
+          color: #4caf50;
+        }
+
+        .task-status {
+          margin-left: auto;
+          font-weight: bold;
+          color: #999;
+        }
+      }
+    }
+  }
 }
 
-.end-date{
-  margin-left: 5px;
-}
-
-.desarrolladores-proyecto{
-  width: 500px;
-  height: 300px;
-  margin-top: 30px;
-  margin-left: 100px;
-}
-
-.tareas-proyecto{
-  width: 500px;
-  height: 300px;
-  margin-top: 30px;
-  margin-left: 30px;
-}
-
-.header{
-  display: flex;
-  justify-content: space-around;
-}
-
-.btn-agregar{
-  border: 1px #3d3d3d solid;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: beige;
- &::hover{
-  background-color: #f7f7f7;
- }
-}
-
-.tarea{
-  margin: 10px;
-  height: 50px;
-
+.btn{
+  height: 30px;
+  background-color: #D6CFC7;
+  border: none;
+  border-radius: 20px;
 }

@@ -30,6 +30,14 @@ export class ApiService {
 getTareasByDesarrolladorId(id: number): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrl}/tareas/desarrollador/${id}`);
 }
+getDesarrolladoresByProyecto(idProyecto: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/proyectos/${idProyecto}/desarrolladores`);
+}
+
+// Obtener tareas asociadas a un proyecto
+getTareasByProyecto(idProyecto: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/tareas/proyecto/${idProyecto}`);
+}
 
 getRoles(): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrl}/roles`);
@@ -45,5 +53,13 @@ deleteDeveloper(id: number): Observable<any> {
 
 createDeveloper(developerData: any): Observable<any> {
   return this.http.post(`${this.apiUrl}/desarrolladores`, developerData);
+}
+
+createProject(projectData: any): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}/proyectos`, projectData);
+}
+
+createTarea(tarea: any): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}/tareas`, tarea);
 }
 }

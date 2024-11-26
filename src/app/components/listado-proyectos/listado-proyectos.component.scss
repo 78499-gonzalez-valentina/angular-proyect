@@ -129,3 +129,23 @@ background-color: white;
   flex-direction: row;
   justify-content: space-between;
 }
+
+.custom-button {
+  color: #3b2229;
+  height: 50px;
+  margin-right: 85px;
+  margin-bottom: 20px;
+  background-color: beige;
+  border: none;
+  border-radius: 30px;
+  width: 200px;
+  transition: box-shadow 0.3s ease;
+  /* Animación suave para la sombra */
+}
+
+.custom-button:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  /* Sombra al pasar el mouse */
+  background-color: #f5e9d7;
+  /* Cambio ligero en el color de fondo */
+}

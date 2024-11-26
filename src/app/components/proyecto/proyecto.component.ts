@@ -1,68 +1,77 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../../api.service'; // Asegúrate de que este servicio exista y tenga un método para obtener proyectos
-import { Project } from '../../models/interfaces';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatCardModule } from '@angular/material/card';
+import { ApiService } from '../../api.service';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-proyecto',
-  standalone: true,
-  imports: [MatChipsModule, MatCardModule, CommonModule],
+  standalone:true,
   templateUrl: './proyecto.component.html',
   styleUrls: ['./proyecto.component.scss'],
+  imports: [CommonModule, MatCardModule, MatIconModule]
 })
 export class ProyectoComponent implements OnInit {
-  project: Project | null = null; // Proyecto actual cargado
+  proyecto: any; // Información del proyecto
+  tareas: any[] = []; // Lista de tareas del proyecto
+  desarrolladores: any[] = []; // Lista de desarrolladores del proyecto
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
-    const projectId = Number(this.route.snapshot.paramMap.get('id'));
-    if (projectId) {
-      this.getProjectDetails(projectId);
-    } else {
-      console.error('ID de proyecto no válido.');
-    }
+    const idProyecto = parseInt(this.route.snapshot.params['id'], 10); // Obtener el ID del proyecto desde la URL
+    this.loadProyecto(idProyecto);
+    this.loadTareas(idProyecto);
+    this.loadDesarrolladores(idProyecto);
   }
 
-  // Método para obtener el proyecto por ID desde la API
- getProjectDetails(id: number): void {
-  this.apiService.getProyectoById(id).subscribe(
-    (projectDto: Project) => {
-      this.project = {
-        id: projectDto.id,
-        name: projectDto.name || 'Nombre no definido',
-        description: projectDto.description || 'Sin descripción',
-        startDate: projectDto.startDate || 'Fecha de inicio no definida',
-        endDate: projectDto.endDate || null,
-        responsible: {
-          id: projectDto.responsible?.id || 0,
-          name: projectDto.responsible?.name || 'Sin responsable',
-          email: projectDto.responsible?.email || 'Correo no definido',
-        },
-        developers: (projectDto.developers || []).map((dev) => ({
-          desarrolladorId: dev.desarrolladorId,
-          proyectoId: dev.proyectoId,
-          desarrollador: {
-            id: dev.desarrollador?.id || 0,
-            name: dev.desarrollador?.name || 'Sin nombre',
-            email: dev.desarrollador?.email || 'Sin correo',
-          },
-        })),
-        tasks: (projectDto.tasks || []).map((task) => ({
-          id: task.id,
-          title: task.title || 'Título no definido',
-          description: task.description || 'Sin descripción',
-          deadline: task.deadline || null
-        })),
-        status: projectDto.endDate ? 'Completado' : 'En progreso',
-      };
-    },
-    (error) => {
-      console.error('Error al obtener el proyecto:', error);
-    }
-  );
-}
+  // Cargar información del proyecto
+  loadProyecto(idProyecto: number): void {
+    this.apiService.getProyectoById(idProyecto).subscribe(
+      (data) => {
+        this.proyecto = data;
+      },
+      (error) => {
+        console.error('Error al cargar proyecto:', error);
+      }
+    );
+  }
+
+  // Cargar tareas asociadas al proyecto
+  loadTareas(idProyecto: number): void {
+    this.apiService.getTareasByProyecto(idProyecto).subscribe(
+      (data) => {
+        this.tareas = data;
+      },
+      (error) => {
+        console.error('Error al cargar tareas:', error);
+      }
+    );
+  }
+
+  // Cargar desarrolladores asociados al proyecto
+  loadDesarrolladores(idProyecto: number): void {
+    this.apiService.getDesarrolladoresByProyecto(idProyecto).subscribe(
+      (data) => {
+        this.desarrolladores = data;
+      },
+      (error) => {
+        console.error('Error al cargar desarrolladores:', error);
+      }
+    );
+  }
+
+  // Método para agregar tareas
+  addTarea(): void {
+    // Implementación futura para agregar tareas
+  }
+
+  // Método para agregar desarrolladores
+  addDesarrollador(): void {
+    // Implementación futura para agregar desarrolladores
+  }
 }

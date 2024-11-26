@@ -1,54 +1,62 @@
-<div *ngIf="project; else noProject">
-  <div class="title">
-    <h3>{{ project?.name }}</h3>
-    <h6>{{ project?.description }}</h6>
-    <div class="date-info">
-      <mat-chip class="start-date">
-        Inicio: {{ project?.startDate ? (project?.startDate | date: 'shortDate') : 'No definido' }}
-      </mat-chip>
-      <mat-chip class="end-date" *ngIf="project?.endDate">
-        Fin: {{ project?.endDate | date: 'shortDate' }}
-      </mat-chip>
-      <mat-chip class="end-date" *ngIf="project?.responsible?.name">
-        Responsable: {{ project?.responsible?.name }}
-      </mat-chip>
-    </div>
+<div class="project-container mat-elevation-z4">
+  <div class="project-header">
+    <h1>{{ proyecto?.nombre }}</h1>
+    <p>{{ proyecto?.descripcion }}</p>
   </div>
 
-  <div class="info-proyecto">
-    <div>
-      <mat-card class="desarrolladores-proyecto" appearance="outlined">
-        <mat-card-header class="header">
-          <mat-card-title class="title">Desarrolladores</mat-card-title>
-          <button mat-flat-button class="btn-agregar"> Agregar desarrollador</button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-card class="tarea" *ngFor="let dev of project.developers">
-            {{ dev.desarrollador.name }} ({{ dev.desarrollador.email }})
-          </mat-card>
-          <p *ngIf="project.developers.length === 0">No hay desarrolladores asignados.</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
+  <div class="project-info">
+    <mat-card class="project-dates">
+      <mat-card-title>
+        <mat-icon>calendar_today</mat-icon>
+        Fechas
+      </mat-card-title>
+      <mat-card-content>
+        <p>Inicio: {{ proyecto?.fecha_inicio | date: 'MMM dd, yyyy' }}</p>
+        <p>Fin: {{ proyecto?.fecha_fin | date: 'MMM dd, yyyy' }}</p>
+      </mat-card-content>
+    </mat-card>
 
-    <div>
-      <mat-card class="tareas-proyecto" appearance="outlined">
-        <mat-card-header class="header">
-          <mat-card-title class="title">Tareas</mat-card-title>
-          <button mat-flat-button class="btn-agregar"> Crear tarea</button>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-card class="tarea" *ngFor="let task of project.tasks">
-            <b>{{ task.title }}</b> - {{ task.deadline ? (task.deadline | date: 'shortDate') : 'Sin fecha límite' }}
-            <p>{{ task.description }}</p>
-          </mat-card>
-          <p *ngIf="project.tasks.length === 0">No hay tareas asignadas.</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
+    <mat-card class="project-responsable">
+      <mat-card-title>
+        <mat-icon>person</mat-icon>
+        Responsable
+      </mat-card-title>
+      <mat-card-content>
+        <p *ngIf="proyecto?.responsable">
+          <strong>{{ proyecto?.responsable?.nombre }}</strong>
+        </p>
+        <p *ngIf="!proyecto?.responsable">No asignado</p>
+      </mat-card-content>
+    </mat-card>
   </div>
+
+  <mat-card class="project-section">
+    <mat-card-title>Tareas</mat-card-title>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" class="btn"  (click)="addTarea()">+ Agregar Tarea</button>
+    </mat-card-actions>
+    <mat-card-content>
+      <div class="task" *ngFor="let tarea of tareas">
+        <mat-icon>check_circle</mat-icon>
+        <span>{{ tarea.titulo }}</span>
+        <span class="task-status">{{ tarea.estado?.nombre }}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="project-section">
+    <mat-card-title>Desarrolladores</mat-card-title>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" class="btn" (click)="addDesarrollador()">+ Agregar Desarrollador</button>
+    </mat-card-actions>
+    <mat-card-content>
+      <div class="developer" *ngFor="let dev of desarrolladores">
+        <mat-icon>person</mat-icon>
+        <div>
+          <strong>{{ dev.nombre }}</strong>
+          <p>{{ dev.correo }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
-
-<ng-template #noProject>
-  <p>No se encontró el proyecto.</p>
-</ng-template>
