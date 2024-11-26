@@ -1,77 +1,54 @@
-<div class="title">
-<h3>Rediseño del sitio web </h3>
-<h6>Actualizar el sitio web corporativo
-</h6>
-<div class="date-info">
-  <mat-chip class="start-date">Inicio: 21/11/2024</mat-chip>
-  <mat-chip class="end-date">Fin: 24/09/2025</mat-chip>
-  <mat-chip class="end-date">Responsable: Juan Perez</mat-chip>
-</div>
-</div>
+<div *ngIf="project; else noProject">
+  <div class="title">
+    <h3>{{ project?.name }}</h3>
+    <h6>{{ project?.description }}</h6>
+    <div class="date-info">
+      <mat-chip class="start-date">
+        Inicio: {{ project?.startDate ? (project?.startDate | date: 'shortDate') : 'No definido' }}
+      </mat-chip>
+      <mat-chip class="end-date" *ngIf="project?.endDate">
+        Fin: {{ project?.endDate | date: 'shortDate' }}
+      </mat-chip>
+      <mat-chip class="end-date" *ngIf="project?.responsible?.name">
+        Responsable: {{ project?.responsible?.name }}
+      </mat-chip>
+    </div>
+  </div>
 
-<div class="info-proyecto">
-  <div>
+  <div class="info-proyecto">
     <div>
       <mat-card class="desarrolladores-proyecto" appearance="outlined">
         <mat-card-header class="header">
           <mat-card-title class="title">Desarrolladores</mat-card-title>
           <button mat-flat-button class="btn-agregar"> Agregar desarrollador</button>
-      
         </mat-card-header>
-      
         <mat-card-content>
-          <mat-card class="tarea">
-            Desarrollador 1
-          
+          <mat-card class="tarea" *ngFor="let dev of project.developers">
+            {{ dev.desarrollador.name }} ({{ dev.desarrollador.email }})
           </mat-card>
-          <mat-card class="tarea">
-            Desarrollador 2
-          
-          </mat-card>
-          <mat-card class="tarea">
-            Desarrollador 3
-          
-          </mat-card>
-          <mat-card class="tarea">
-            Desarrollador 4
-          
-          </mat-card>
-          
-      
+          <p *ngIf="project.developers.length === 0">No hay desarrolladores asignados.</p>
         </mat-card-content>
-      
       </mat-card>
     </div>
+
     <div>
-   
+      <mat-card class="tareas-proyecto" appearance="outlined">
+        <mat-card-header class="header">
+          <mat-card-title class="title">Tareas</mat-card-title>
+          <button mat-flat-button class="btn-agregar"> Crear tarea</button>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-card class="tarea" *ngFor="let task of project.tasks">
+            <b>{{ task.title }}</b> - {{ task.deadline ? (task.deadline | date: 'shortDate') : 'Sin fecha límite' }}
+            <p>{{ task.description }}</p>
+          </mat-card>
+          <p *ngIf="project.tasks.length === 0">No hay tareas asignadas.</p>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
-
-  <div>
-    <mat-card class="tareas-proyecto" appearance="outlined">
-      <mat-card-header class="header">
-        <mat-card-title class="title">Tareas</mat-card-title>
-        <button mat-flat-button class="btn-agregar"> Crear tarea</button>
-    
-      </mat-card-header>
-    
-      <mat-card-content>
-        <mat-card class="tarea">
-          Tarea 1
-        
-        </mat-card>
-        <mat-card class="tarea">
-          Tarea 2
-        
-        </mat-card>
-        <mat-card class="tarea">
-          Tarea 3
-        
-        </mat-card>
-    
-      </mat-card-content>
-    
-    </mat-card>
-  </div>
-
 </div>
+
+<ng-template #noProject>
+  <p>No se encontró el proyecto.</p>
+</ng-template>

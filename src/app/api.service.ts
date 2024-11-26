@@ -22,4 +22,28 @@ export class ApiService {
   getProyectos(): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.apiUrl}/proyectos`);
   }
+
+   getProyectoById(id: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/proyectos/${id}`);
+}
+
+getTareasByDesarrolladorId(id: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/tareas/desarrollador/${id}`);
+}
+
+getRoles(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/roles`);
+}
+
+updateDeveloper(id: number, updatedData: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/desarrolladores/${id}`, updatedData);
+}
+
+deleteDeveloper(id: number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/desarrolladores/${id}`);
+}
+
+createDeveloper(developerData: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/desarrolladores`, developerData);
+}
 }

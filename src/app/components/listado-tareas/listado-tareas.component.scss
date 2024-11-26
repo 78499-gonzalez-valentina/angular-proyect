@@ -109,11 +109,7 @@ display: flex;
       box-shadow: 0 4px 8px rgba(241, 162, 59, 0.9);
     }
   
-    &.en-curso {
-     
-    }
-  
-    &.completado {
+    &.finalizada {
       background-color: #66BB6A;
       box-shadow: 0 4px 8px rgba(195, 240, 201, 0.9);
     }

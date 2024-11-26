@@ -29,8 +29,10 @@ export const routes: Routes = [
       {path:'metricas',
       component: MetricasComponent,
       },
-      {path:'proyecto',
-      component: ProyectoComponent},
+      {
+    path: 'proyectos/:id',
+    component: ProyectoComponent,
+  },
 
     ]
   },

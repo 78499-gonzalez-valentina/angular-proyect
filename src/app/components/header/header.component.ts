@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon'
 import {MatListModule} from '@angular/material/list'
@@ -24,4 +24,12 @@ export class HeaderComponent {
     this.menu = !this.menu;
   }
 
+   @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    // Si el clic ocurre fuera del menú y el botón, cierra el menú
+    if (!target.closest('.menu-container') && !target.closest('.custom-button')) {
+      this.menu = false;
+    }
+  }
 }

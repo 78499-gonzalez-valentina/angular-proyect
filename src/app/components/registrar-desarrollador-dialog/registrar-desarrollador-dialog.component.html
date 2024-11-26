@@ -1,0 +1,40 @@
+<div style="padding: 40px;">
+  <h1 mat-dialog-title>Registrar Desarrollador</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="form">
+      <!-- Nombre -->
+      <mat-form-field appearance="outline" style="margin-bottom: 10px;">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" required />
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="outline" style="margin-bottom: 10px;">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required />
+      </mat-form-field>
+
+      <!-- Rol -->
+      <mat-form-field appearance="outline" style="margin-bottom: 10px;">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="rol" required>
+          <mat-option *ngFor="let rol of roles" [value]="rol.id">
+            {{ rol.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Fecha de Contratación -->
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha de Contratación</mat-label>
+        <input matInput formControlName="fechaContratacion" type="date" required />
+      </mat-form-field>
+    </form>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="onSave()">
+      Guardar
+    </button>
+  </div>
+</div>

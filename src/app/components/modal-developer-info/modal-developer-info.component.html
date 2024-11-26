@@ -1,0 +1,26 @@
+<div style="padding: 40px;">
+  <h1 mat-dialog-title style="font-size: 25px; color: #3d3d3d;">
+    Información del Desarrollador
+  </h1>
+  <div mat-dialog-content>
+    <p><strong>Nombre:</strong> {{ developer.nombre }}</p>
+    <p><strong>Correo:</strong> {{ developer.correo }}</p>
+    <p><strong>Rol:</strong> {{ developer.rol?.nombre || 'Sin rol asignado' }}</p>
+    <p>
+      <strong>Fecha de Contratación:</strong>
+      {{ developer.fechaContratacion | date: 'longDate' }}
+    </p>
+
+    <h5 style="margin-top: 20px;">Tareas Asignadas</h5>
+    <ul *ngIf="tasks.length > 0">
+      <li *ngFor="let task of tasks">{{ task }}</li>
+    </ul>
+
+    <p *ngIf="tasks.length === 0" style="margin-top: 20px;">
+      Este desarrollador no tiene tareas asignadas.
+    </p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Cerrar</button>
+  </div>
+</div>

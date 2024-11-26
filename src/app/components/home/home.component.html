@@ -1,1 +1,46 @@
-<h1>Bienvenidos!</h1>
+<div class="dashboard-container mat-typography">
+  <h3>Panel de Gestión de Proyectos</h3>
+  <div class="dashboard-grid">
+    <!-- Proyectos activos -->
+    <mat-card class="dashboard-card">
+      <mat-card-title>Proyectos activos</mat-card-title>
+      <mat-card-subtitle>Visión general de los proyectos en curso</mat-card-subtitle>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let project of projects">
+            <mat-icon mat-list-icon>folder</mat-icon>
+            {{ project.name }}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Miembros del equipo -->
+    <mat-card class="dashboard-card">
+      <mat-card-title>Miembros del equipo</mat-card-title>
+      <mat-card-subtitle>Miembros activos del equipo</mat-card-subtitle>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let developer of developers">
+            <mat-icon mat-list-icon>person</mat-icon>
+            {{ developer.name }}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Tareas recientes -->
+    <mat-card class="dashboard-card">
+      <mat-card-title>Tareas recientes</mat-card-title>
+      <mat-card-subtitle>Últimas tareas asignadas</mat-card-subtitle>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let task of tasks">
+            <mat-icon mat-list-icon>check_circle</mat-icon>
+            {{ task.title }}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

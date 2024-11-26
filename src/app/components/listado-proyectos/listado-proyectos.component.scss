@@ -123,3 +123,9 @@ margin-bottom: 10px;
 font-size: 20px;
 background-color: white;
 }
+
+.header-proyectos{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

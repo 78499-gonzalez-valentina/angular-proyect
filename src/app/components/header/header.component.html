@@ -4,7 +4,7 @@
   </button>
   @if (menu){
   
-    <mat-nav-list  style="position: absolute; top: 65px; left: 5px; background-color: #D6CFC7; border-radius: 10px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 300px;">
+    <mat-nav-list  style="position: absolute; top: 65px; left: 5px; background-color: beige; border-radius: 10px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 300px;">
       @for(item of menuItems; track item.name){
       <mat-list-item role="listitem" [routerLink]="item.route">
         <mat-icon style="border-right: 5px;">{{ item.icon }}</mat-icon>
@@ -14,6 +14,11 @@
   
   }
   <p style="margin-left: 30px; margin-top: 20px; color: white;">Gestion de proyectos</p>
+
+  <div class="demo-section" style="margin-top: 15px; margin-left: 950px;">
+    <mat-icon matBadge="3" style="color: white; margin-right: 20px;">notifications</mat-icon>
+    <mat-icon style="color: white;">account_circle</mat-icon>
+  </div>
 </div>
 
 

@@ -1,5 +1,7 @@
+<p style="margin-left: 50px; font-size: 25px;">Proyectos</p>
+<div class="header-proyectos">
 <div class="filter-container">
-  <button class="btnFiltro" mat-button [matMenuTriggerFor]="filterMenu">
+  <button class="btnFiltro" mat-button [matMenuTriggerFor]="filterMenu" style="color: #3B2229; height: 50px;  margin-bottom: 20px; background-color: #D6CFC7; border: none;  width: 150px;">
     Filtros <mat-icon>filter_list</mat-icon>
   </button>
 
@@ -14,21 +16,23 @@
     <input matInput (keyup)="searchProject($event)" placeholder="Nombre del proyecto">
   </mat-form-field>
 </div>
+<div>
+  <button mat-raised-button
+    style="color: #3B2229; height: 50px; margin-right: 85px; margin-bottom: 20px; background-color: #D6CFC7; border: none; border-radius: 30px; width: 200px;"
+   >
+    Crear nuevo proyecto 
+  </button>
+</div>
+</div>
+
+
 
 <div class="projects-container">
   <mat-card *ngFor="let project of filteredProjects" class="project-card" appearance="outlined">
     <mat-card-header>
       <mat-card-title class="title">{{ project.name }}</mat-card-title>
       <mat-card-subtitle class="subtitle">{{ project.description }}</mat-card-subtitle>
-      <div>
-        <button mat-flat-button [ngClass]="{
-                  'in-progress': project.status === 'En progreso',
-                  'completed': project.status === 'Completado',
-                  'planning': project.status === 'Planificación'
-                }" class="status-btn">
-          {{ project.status }}
-        </button>
-      </div>
+      
     </mat-card-header>
 
     <mat-card-content>

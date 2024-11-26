@@ -9,39 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { ApiService } from '../../api.service';
-
-interface Developer {
-  desarrolladorId: number;
-  proyectoId: number;
-  desarrollador: {
-    id: number;
-    name: string;
-    email: string;
-  };
-}
-
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  deadline: string;
-}
-
-interface Project {
-  id: number;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string | null;
-  responsible: {
-    id: number;
-    name: string;
-    email: string;
-  };
-  developers: Developer[];
-  tasks: Task[];
-  status: string;
-}
+import { Project, Developers, Task } from '../../models/interfaces';
 
 @Component({
   selector: 'app-listado-proyectos',
@@ -69,49 +37,70 @@ export class ListadoProyectosComponent implements OnInit {
     this.getProjects();
   }
 
-  getProjects(): void {
-    this.apiService.getProyectos().subscribe(
-      (data: any[]) => {
-        // Transformar los datos recibidos de la API para adaptarlos a la interfaz
-        this.projects = data.map((project): Project => ({
-          id: project.id,
-          name: project.nombre,
-          description: project.descripcion,
-          startDate: project.fecha_inicio,
-          endDate: project.fecha_fin,
+getProjects(): void {
+  this.apiService.getProyectos().subscribe(
+    (data: any[]) => {
+      // Transformar los datos recibidos de la API para adaptarlos a las nuevas interfaces
+      this.projects = data
+        .filter((project) => project.nombre && project.nombre.trim().length > 0) // Filtrar proyectos sin nombre
+        .map((project): Project => ({
+          id: project.id || 0, // Asignar 0 si `id` es null
+          name: project.nombre, // Asumimos que aquí el nombre ya no es null por el filtro
+          description: project.descripcion || 'Sin descripción',
+          startDate: project.fecha_inicio || 'Fecha no definida',
+          endDate: project.fecha_fin || null, // Permitir `null` si no existe
           responsible: {
-            id: project.responsable.id,
-            name: project.responsable.nombre,
-            email: project.responsable.correo,
+            id: project.responsable?.id || 0, // Validar que `responsable` exista
+            name: project.responsable?.nombre || 'Sin responsable',
+            email: project.responsable?.correo || 'Correo no disponible',
           },
-          developers: project.desarrolladores.map((dev: any): Developer => ({
-            desarrolladorId: dev.desarrolladorId,
-            proyectoId: dev.proyectoId,
+          developers: (project.desarrolladores || []).map((dev: any) => ({
+            desarrolladorId: dev.desarrolladorId || 0,
+            proyectoId: dev.proyectoId || 0,
             desarrollador: {
-              id: dev.desarrollador.id,
-              name: dev.desarrollador.nombre,
-              email: dev.desarrollador.correo,
+              id: dev.desarrollador?.id || 0,
+              name: dev.desarrollador?.nombre || 'Sin nombre',
+              email: dev.desarrollador?.correo || 'Correo no disponible',
             },
           })),
-          tasks: project.tareas.map((task: any): Task => ({
-            id: task.id,
-            title: task.titulo,
-            description: task.descripcion,
-            deadline: task.fecha_limite,
+          tasks: (project.tareas || []).map((task: any): Task => ({
+            id: task.id || 0,
+            title: task.titulo || 'Tarea sin título',
+            description: task.descripcion || 'Sin descripción',
+            deadline: task.fecha_limite || 'Sin fecha límite',
+            creationDate: task.fecha_creacion || 'Fecha no definida',
+            updateDate: task.fecha_actualizacion || 'Fecha no definida',
+            project: {
+              id: task.proyecto?.id || 0,
+              description: task.proyecto?.descripcion || 'Sin descripción',
+              name: task.proyecto?.nombre || 'Sin nombre',
+              startDate: task.proyecto?.fecha_inicio || 'Fecha no definida',
+              endDate: task.proyecto?.fecha_fin || null,
+            },
+            developer: {
+              id: task.desarrollador?.id || 0,
+              name: task.desarrollador?.nombre || 'Sin nombre',
+              email: task.desarrollador?.correo || 'Correo no disponible',
+            },
+            status: {
+              id: task.estado?.id || 0,
+              name: task.estado?.nombre || 'Estado no definido',
+            },
           })),
-          status: this.getProjectStatus(project), // Puedes implementar lógica para el estado
+          status: this.getProjectStatus(project), // Determina el estado del proyecto
         }));
 
-        this.filteredProjects = [...this.projects];
-      },
-      (error) => {
-        console.error('Error fetching projects:', error);
-      }
-    );
-  }
+      this.filteredProjects = [...this.projects];
+    },
+    (error) => {
+      console.error('Error fetching projects:', error);
+    }
+  );
+}
+
 
   getProjectStatus(project: any): string {
-    // Implementar lógica para determinar el estado del proyecto
+    // Implementa la lógica para determinar el estado del proyecto
     if (!project.fecha_fin) {
       return 'En progreso';
     }
@@ -134,6 +123,6 @@ export class ListadoProyectosComponent implements OnInit {
   }
 
   goToProyecto(id: number): void {
-    this.router.navigate([`/proyecto/${id}`]); // Navegar a la ruta del proyecto especifico
+    this.router.navigate([`/proyecto/${id}`]); // Navegar a la ruta del proyecto específico
   }
 }

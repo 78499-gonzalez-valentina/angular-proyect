@@ -1,5 +1,8 @@
+<p style="margin-left: 50px; font-size: 25px;">Tareas</p>
+<div style="display: flex; flex-direction: row; justify-content: space-between;">
 <div class="filter-container">
-  <button class="btnFiltro" mat-button [matMenuTriggerFor]="filterMenu">
+  <button class="btnFiltro" mat-button [matMenuTriggerFor]="filterMenu"
+    style="color: #3B2229; height: 50px;  margin-bottom: 20px; background-color: #D6CFC7; border: none;  width: 150px;">
     Filtros <mat-icon>filter_list</mat-icon>
   </button>
 
@@ -7,13 +10,20 @@
     <button mat-menu-item (click)="filterTasks('Todos')">Todos</button>
     <button mat-menu-item (click)="filterTasks('Pendiente')">Pendiente</button>
     <button mat-menu-item (click)="filterTasks('En curso')">En curso</button>
-    <button mat-menu-item (click)="filterTasks('Completado')">Completado</button>
+    <button mat-menu-item (click)="filterTasks('Finalizada')">Finalizada</button>
   </mat-menu>
 
   <mat-form-field appearance="outline" style="width: 300px;">
     <mat-label>Buscar tarea</mat-label>
     <input matInput (keyup)="searchTask($event)" placeholder="Título de la tarea">
   </mat-form-field>
+</div>
+<div>
+  <button mat-raised-button
+    style="color: #3B2229; height: 50px; margin-right: 85px; margin-bottom: 20px; background-color: #D6CFC7; border: none; border-radius: 30px; width: 200px;">
+    Crear nueva tarea
+  </button>
+</div>
 </div>
 
 <div class="tasks-container">
@@ -27,10 +37,10 @@
       <div class="status-btn" [ngClass]="{
                 'pendiente': task.status.name.toLowerCase() === 'pendiente',
                 'en-curso': task.status.name.toLowerCase() === 'en curso',
-                'completado': task.status.name.toLowerCase() === 'completado',
+                'finalizada': task.status.name.toLowerCase() === 'finalizada',
                 'otro-estado': task.status.name.toLowerCase() !== 'pendiente' &&
                                task.status.name.toLowerCase() !== 'en progreso' &&
-                               task.status.name.toLowerCase() !== 'completado'
+                               task.status.name.toLowerCase() !== 'finalizada'
               }">
         {{ task.status.name }}
       </div>

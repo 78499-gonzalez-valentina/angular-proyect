@@ -1,0 +1,15 @@
+.dashboard-container {
+  padding: 20px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  padding: 15px;
+  background-color: beige;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
