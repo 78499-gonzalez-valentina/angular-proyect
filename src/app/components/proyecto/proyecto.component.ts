@@ -9,13 +9,17 @@ import { CrearTareaDialogComponent } from '../crear-tarea-dialog/crear-tarea-dia
 import { AddDevelopersDialogComponent } from '../add-developers-dialog/add-developers-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-proyecto',
   standalone: true,
   templateUrl: './proyecto.component.html',
   styleUrls: ['./proyecto.component.scss'],
-  imports: [CommonModule, MatCardModule, MatIconModule, MatDialogModule, MatFormFieldModule, MatSelectModule],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatDialogModule, MatFormFieldModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, FormsModule, MatInputModule],
 })
 export class ProyectoComponent implements OnInit {
   proyecto: any; // Información del proyecto
@@ -88,11 +92,13 @@ export class ProyectoComponent implements OnInit {
         id: task.id,
         titulo: task.titulo,
         estado: task.estado,
-        developer: task.desarrollador
+        developer: task.desarrollador,
+        fecha_limite: task.fecha_limite ? new Date(task.fecha_limite): new Date(task.fecha_limite)// Convertir a objeto Date
           ? {
               id: task.desarrollador.id,
               name: task.desarrollador.nombre,
               email: task.desarrollador.correo,
+
             }
           : null, // Si no hay desarrollador asignado
       }));
@@ -178,5 +184,22 @@ openAddDevelopersDialog(): void {
       );
     }
   });
+}
+
+updateTarea(tarea: any): void {
+  const updatedData = {
+    titulo: tarea.titulo, // Nuevo título
+    fecha_limite: tarea.fecha_limite ? new Date(tarea.fecha_limite).toISOString() : null, // Fecha límite formateada
+  };
+
+  this.apiService.updateTarea(tarea.id, updatedData).subscribe(
+    (response) => {
+      console.log('Tarea actualizada:', response);
+      this.loadTareas(this.proyecto.id); // Recargar tareas
+    },
+    (error) => {
+      console.error('Error al actualizar la tarea:', error);
+    }
+  );
 }
 }

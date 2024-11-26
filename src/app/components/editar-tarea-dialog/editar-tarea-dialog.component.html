@@ -1,0 +1,40 @@
+<div style="padding: 20px; width: 400px;">
+  <h5 mat-dialog-title>Editar Tarea</h5>
+  
+  <div mat-dialog-content>
+    <!-- Campo para el título -->
+    <mat-form-field style="margin-right: 10px; height: 80px;" appearance="fill" class="form-field">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="tarea.title" />
+    </mat-form-field>
+  
+    <!-- Campo para la descripción -->
+    <mat-form-field style="margin-right: 10px; height: 80px;"  appearance="fill" class="form-field">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput [(ngModel)]="tarea.description"></textarea>
+    </mat-form-field>
+  
+    <!-- Campo para la fecha límite -->
+    <mat-form-field style="margin-right: 10px; height: 80px;"   appearance="fill" class="form-field">
+      <mat-label>Fecha Límite</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="tarea.deadline" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+    <!-- Campo para seleccionar el desarrollador -->
+<mat-form-field style="margin-right: 10px; height: 80px;" appearance="fill" class="form-field">
+  <mat-label>Desarrollador</mat-label>
+  <mat-select [(ngModel)]="tarea.developer" [compareWith]="compareDevelopers">
+    <mat-option *ngFor="let developer of developers" [value]="developer">
+      {{ developer.nombre }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+  </div>
+  
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+  </div>
+</div>

@@ -14,7 +14,7 @@ export interface Task {
   id: number;
   title: string; // "titulo" en la API
   description: string; // "descripcion" en la API
-  deadline: string ; // "fecha_limite" en la API
+  deadline: Date | null; // "fecha_limite" en la API
   creationDate: string; // "fecha_creacion" en la API
   updateDate: string; // "fecha_actualizacion" en la API
   project: {

@@ -11,6 +11,7 @@ import { ApiService } from '../../api.service';
 import { Task } from '../../models/interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { CrearTareaDialogComponent } from '../crear-tarea-dialog/crear-tarea-dialog.component';
+import { EditarTareaDialogComponent } from '../editar-tarea-dialog/editar-tarea-dialog.component';
 
 
 
@@ -116,4 +117,34 @@ getTasks(): void {
     task.title?.toLowerCase().includes(input)
   );
 }
+
+openEditarTareaDialog(task: Task): void {
+  const dialogRef = this.dialog.open(EditarTareaDialogComponent, {
+    width: '500px',
+    data: { ...task }, // Pasar los datos iniciales al diálogo
+  });
+
+  dialogRef.afterClosed().subscribe((updatedFields) => {
+    if (updatedFields) {
+      this.apiService.updateTarea(task.id, updatedFields).subscribe(
+        (response) => {
+          console.log('Tarea actualizada:', response);
+
+          // Actualizar la tarea en la lista local
+          const index = this.tasks.findIndex((t) => t.id === task.id);
+          if (index !== -1) {
+            this.tasks[index] = response; // Reemplazar con la respuesta completa
+          }
+
+          // Recargar la lista completa si es necesario
+          // this.getTasks();
+        },
+        (error) => {
+          console.error('Error al actualizar la tarea:', error);
+        }
+      );
+    }
+  });
+}
+
 }
