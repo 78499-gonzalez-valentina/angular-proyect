@@ -62,4 +62,9 @@ createProject(projectData: any): Observable<any> {
 createTarea(tarea: any): Observable<any> {
   return this.http.post<any>(`${this.apiUrl}/tareas`, tarea);
 }
+
+updateProyecto(id: number, proyectoData: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/proyectos/${id}`, proyectoData);
 }
+}
+

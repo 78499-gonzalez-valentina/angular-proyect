@@ -4,13 +4,16 @@ import { ApiService } from '../../api.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CrearTareaDialogComponent } from '../crear-tarea-dialog/crear-tarea-dialog.component';
+import { AddDevelopersDialogComponent } from '../add-developers-dialog/add-developers-dialog.component';
 
 @Component({
   selector: 'app-proyecto',
-  standalone:true,
+  standalone: true,
   templateUrl: './proyecto.component.html',
   styleUrls: ['./proyecto.component.scss'],
-  imports: [CommonModule, MatCardModule, MatIconModule]
+  imports: [CommonModule, MatCardModule, MatIconModule, MatDialogModule],
 })
 export class ProyectoComponent implements OnInit {
   proyecto: any; // Información del proyecto
@@ -19,7 +22,8 @@ export class ProyectoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private dialog: MatDialog // Inyección de MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -66,12 +70,62 @@ export class ProyectoComponent implements OnInit {
   }
 
   // Método para agregar tareas
-  addTarea(): void {
-    // Implementación futura para agregar tareas
-  }
+addTarea(): void {
+  const dialogRef = this.dialog.open(CrearTareaDialogComponent, {
+    width: '500px',
+    data: { idProyecto: this.proyecto?.id, nombreProyecto: this.proyecto?.nombre }, // Pasar datos del proyecto
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result) {
+      // Sobrescribir el ID del proyecto con el proyecto actual
+      const tareaConProyecto = { ...result, idProyecto: this.proyecto?.id };
+
+      this.apiService.createTarea(tareaConProyecto).subscribe(
+        (response) => {
+          console.log('Tarea creada:', response);
+
+          // Actualizar la lista de tareas
+          this.loadTareas(this.proyecto?.id);
+        },
+        (error) => {
+          console.error('Error al crear la tarea:', error);
+        }
+      );
+    }
+  });
+}
 
   // Método para agregar desarrolladores
-  addDesarrollador(): void {
-    // Implementación futura para agregar desarrolladores
-  }
+openAddDevelopersDialog(): void {
+  const dialogRef = this.dialog.open(AddDevelopersDialogComponent, {
+    width: '500px',
+    data: { currentDevelopers: this.desarrolladores },
+  });
+
+  dialogRef.afterClosed().subscribe((selectedDevelopersIds: number[]) => {
+    if (selectedDevelopersIds && selectedDevelopersIds.length > 0) {
+      // Crear un array de desarrolladores basado en los IDs seleccionados
+      const newDevelopers = selectedDevelopersIds.map((id) => ({
+        id,
+      }));
+
+      // Actualizar el proyecto con los nuevos desarrolladores
+      const updatedProyecto = {
+        ...this.proyecto,
+        desarrolladores: [...this.desarrolladores, ...newDevelopers], // Agregar los nuevos
+      };
+
+      this.apiService.updateProyecto(this.proyecto.id, updatedProyecto).subscribe(
+        (response) => {
+          console.log('Proyecto actualizado con nuevos desarrolladores:', response);
+          this.loadDesarrolladores(this.proyecto.id); // Recargar la lista de desarrolladores
+        },
+        (error) => {
+          console.error('Error al actualizar el proyecto:', error);
+        }
+      );
+    }
+  });
+}
 }

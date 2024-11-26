@@ -1,0 +1,26 @@
+<div style="padding: 20px ; max-height: 500px;">
+  <h5 mat-dialog-title>Agregar Desarrolladores</h5>
+  
+  <div mat-dialog-content>
+    <!-- Campo de búsqueda -->
+    <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 10px;">
+      <mat-label>Buscar desarrollador</mat-label>
+      <input matInput (input)="filterDevelopers($event)" placeholder="Ejemplo: Juan">
+    </mat-form-field>
+  
+  
+    <!-- Lista de desarrolladores con desplazamiento -->
+    <div style="max-height: 500px; overflow-y: auto;">
+      <mat-selection-list [(ngModel)]="selectedDevelopers">
+        <mat-list-option *ngFor="let developer of filteredDevelopers" [value]="developer.id">
+          {{ developer.nombre }} ({{ developer.correo }})
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSave()">Guardar</button>
+  </div>
+</div>
+
