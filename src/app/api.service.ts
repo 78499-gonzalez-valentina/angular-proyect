@@ -66,5 +66,14 @@ createTarea(tarea: any): Observable<any> {
 updateProyecto(id: number, proyectoData: any): Observable<any> {
   return this.http.put(`${this.apiUrl}/proyectos/${id}`, proyectoData);
 }
+
+ getEstados(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/estados`);
+  }
+
+  // Actualizar una tarea
+  updateTarea(idTarea: number, tareaData: Partial<any>): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/tareas/${idTarea}`, tareaData);
+  }
 }
 

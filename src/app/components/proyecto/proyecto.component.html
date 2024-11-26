@@ -33,13 +33,26 @@
   <mat-card class="project-section">
     <mat-card-title>Tareas</mat-card-title>
     <mat-card-actions>
-      <button mat-raised-button color="primary" class="btn"  (click)="addTarea()">+ Agregar Tarea</button>
+      <button mat-raised-button color="primary" class="btn" (click)="addTarea()">+ Agregar Tarea</button>
     </mat-card-actions>
     <mat-card-content>
-      <div class="task" *ngFor="let tarea of tareas">
-        <mat-icon>check_circle</mat-icon>
-        <span>{{ tarea.titulo }}</span>
-        <span class="task-status">{{ tarea.estado?.nombre }}</span>
+      <div class="task-container" *ngFor="let tarea of tareas">
+        <div class="task-left">
+          <mat-icon class="task-icon">check_circle</mat-icon>
+          <div class="task-info">
+            <span class="task-title">{{ tarea.titulo }}</span>
+            <span class="task-developer">{{ tarea.developer?.name || 'Sin asignar' }}</span>
+          </div>
+        </div>
+        <div class="task-right">
+          <mat-form-field appearance="fill" class="task-status-field">
+            <mat-label>Estado</mat-label>
+        
+            <mat-select [(value)]="selectedEstado[tarea.id]" (selectionChange)="changeTaskState(tarea, $event.value)">
+              <mat-option *ngFor="let estado of estados" [value]="estado.id">{{ estado.nombre }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

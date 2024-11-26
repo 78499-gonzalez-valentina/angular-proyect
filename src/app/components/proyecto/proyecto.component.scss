@@ -80,3 +80,51 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   /* Sombra al hacer hover */
 }
+
+.task-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.task-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-icon {
+  color: green;
+  /* Cambia el color del tick verde */
+  font-size: 24px;
+}
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.task-developer {
+  font-size: 14px;
+  color: gray;
+}
+
+.task-right {
+  display: flex;
+  align-items: center;
+}
+
+.task-status-field {
+  min-width: 150px;
+}

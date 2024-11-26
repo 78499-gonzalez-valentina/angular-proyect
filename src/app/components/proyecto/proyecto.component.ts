@@ -7,18 +7,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CrearTareaDialogComponent } from '../crear-tarea-dialog/crear-tarea-dialog.component';
 import { AddDevelopersDialogComponent } from '../add-developers-dialog/add-developers-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-proyecto',
   standalone: true,
   templateUrl: './proyecto.component.html',
   styleUrls: ['./proyecto.component.scss'],
-  imports: [CommonModule, MatCardModule, MatIconModule, MatDialogModule],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatDialogModule, MatFormFieldModule, MatSelectModule],
 })
 export class ProyectoComponent implements OnInit {
   proyecto: any; // Información del proyecto
   tareas: any[] = []; // Lista de tareas del proyecto
   desarrolladores: any[] = []; // Lista de desarrolladores del proyecto
+   estados: any[] = [];
+   selectedEstado: { [key: number]: number } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -31,8 +35,28 @@ export class ProyectoComponent implements OnInit {
     this.loadProyecto(idProyecto);
     this.loadTareas(idProyecto);
     this.loadDesarrolladores(idProyecto);
+    this.loadEstados();
+
+     this.apiService.getEstados().subscribe(
+    (estados) => {
+      this.estados = estados; // Guardar los estados en una variable
+    },
+    (error) => {
+      console.error('Error al obtener estados:', error);
+    }
+  );
   }
 
+   loadEstados(): void {
+    this.apiService.getEstados().subscribe(
+      (data) => {
+        this.estados = data;
+      },
+      (error) => {
+        console.error('Error al cargar estados:', error);
+      }
+    );
+  }
   // Cargar información del proyecto
   loadProyecto(idProyecto: number): void {
     this.apiService.getProyectoById(idProyecto).subscribe(
@@ -44,18 +68,45 @@ export class ProyectoComponent implements OnInit {
       }
     );
   }
+  changeTaskState(tarea: any, newStateId: number): void {
+  this.apiService.updateTarea(tarea.id, { id_estado: newStateId }).subscribe(
+    (response) => {
+      console.log('Estado de la tarea actualizado:', response);
+      this.loadTareas(this.proyecto.id); // Recargar tareas para actualizar la lista
+    },
+    (error) => {
+      console.error('Error al actualizar estado de la tarea:', error);
+    }
+  );
+}
 
   // Cargar tareas asociadas al proyecto
-  loadTareas(idProyecto: number): void {
-    this.apiService.getTareasByProyecto(idProyecto).subscribe(
-      (data) => {
-        this.tareas = data;
-      },
-      (error) => {
-        console.error('Error al cargar tareas:', error);
-      }
-    );
-  }
+ loadTareas(idProyecto: number): void {
+  this.apiService.getTareasByProyecto(idProyecto).subscribe(
+    (data) => {
+      this.tareas = data.map((task: any) => ({
+        id: task.id,
+        titulo: task.titulo,
+        estado: task.estado,
+        developer: task.desarrollador
+          ? {
+              id: task.desarrollador.id,
+              name: task.desarrollador.nombre,
+              email: task.desarrollador.correo,
+            }
+          : null, // Si no hay desarrollador asignado
+      }));
+
+      // Inicializar selectedEstado con el estado actual de cada tarea
+      this.tareas.forEach((tarea) => {
+        this.selectedEstado[tarea.id] = tarea.estado.id; // Usa el id del estado actual
+      });
+    },
+    (error) => {
+      console.error('Error al cargar tareas:', error);
+    }
+  );
+}
 
   // Cargar desarrolladores asociados al proyecto
   loadDesarrolladores(idProyecto: number): void {
