@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { ModalDeveloperInfoComponent } from '../modal-developer-info/modal-developer-info.component';
 import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
 import { ErrorDialogComponent } from '../error-dialog-component/error-dialog-component.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-listado-desarrolladores',
@@ -33,12 +34,14 @@ import { ErrorDialogComponent } from '../error-dialog-component/error-dialog-com
     MatButtonModule,
     CommonModule,
     MatDialogModule,
+    MatMenuModule
   ],
 })
 export class ListadoDesarrolladoresComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['nombre', 'email', 'rol', 'fechaContratacion', 'acciones'];
   dataSource = new MatTableDataSource<Developers>([]);
    roles: any[] = [];
+   allDevelopers: Developers[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -46,14 +49,23 @@ export class ListadoDesarrolladoresComponent implements AfterViewInit, OnInit {
   constructor(public dialog: MatDialog, private apiService: ApiService) {}
 
   ngOnInit(): void {
+    this.getRoles();
     this.getDevelopers();
+  }
+
+  selectedRole: string = 'Todos';
+
+   getRoles(): void {
+    this.apiService.getRoles().subscribe((roles) => {
+      this.roles = roles;
+    });
   }
 
 getDevelopers(): void {
   this.apiService.getDevelopers().subscribe(
     (data: Developers[]) => {
       // Filtrar los desarrolladores cuyos campos obligatorios no son null
-      this.dataSource.data = data.filter((developer: Developers) => {
+      const filteredDevelopers = data.filter((developer: Developers) => {
         return (
           developer.nombre !== null &&
           developer.correo !== null &&
@@ -61,6 +73,9 @@ getDevelopers(): void {
           developer.fechaContratacion !== null
         );
       });
+
+      this.allDevelopers = filteredDevelopers; // Almacena todos los desarrolladores válidos
+      this.dataSource.data = filteredDevelopers; // Inicialmente muestra todos los desarrolladores
     },
     (error) => {
       console.error('Error fetching developers:', error);
@@ -68,6 +83,17 @@ getDevelopers(): void {
   );
 }
 
+filterDevelopersByRole(roleName: string): void {
+  this.selectedRole = roleName; // Actualizar el nombre del filtro en el botón
+
+  if (roleName === 'Todos') {
+    this.dataSource.data = this.allDevelopers; // Mostrar todos los desarrolladores válidos
+  } else {
+    this.dataSource.data = this.allDevelopers.filter(
+      (developer) => developer.rol?.nombre === roleName
+    );
+  }
+}
 
 openRegistrarDialog(): void {
   const dialogRef = this.dialog.open(RegistrarDesarrolladorDialogComponent, {

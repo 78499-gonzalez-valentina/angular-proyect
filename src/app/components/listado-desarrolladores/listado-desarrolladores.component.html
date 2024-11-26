@@ -5,6 +5,21 @@
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Mia" #input>
     </mat-form-field>
+
+    <div style="display: flex; flex-direction: row;">
+      <p style="margin-left: 50px; margin-top: 10px;">Filtra por rol</p>
+    <button class="btnFiltro" mat-button [matMenuTriggerFor]="filterMenu"
+      style="color: #3B2229; height: 40px; margin-bottom: 20px; margin-left: 5px; background-color: #D6CFC7; border: none; min-width: 120px">
+      {{ selectedRole }} <mat-icon>filter_list</mat-icon>
+    </button>
+    
+    <mat-menu #filterMenu="matMenu">
+      <button mat-menu-item (click)="filterDevelopersByRole('Todos')">Todos</button>
+      <button mat-menu-item *ngFor="let rol of roles" (click)="filterDevelopersByRole(rol.nombre)">
+        {{ rol.nombre }}
+      </button>
+    </mat-menu>
+    </div>
   </div>
 
   <button mat-raised-button
