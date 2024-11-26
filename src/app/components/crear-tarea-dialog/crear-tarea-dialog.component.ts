@@ -35,25 +35,32 @@ export class CrearTareaDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Cargar los proyectos para mostrarlos en el desplegable
-    this.apiService.getProyectos().subscribe(
-      (proyectos) => {
-        this.proyectos = proyectos;
-      },
-      (error) => {
-        console.error('Error al cargar los proyectos:', error);
-      }
-    );
+  // Cargar los proyectos para mostrarlos en el desplegable
+  this.apiService.getProyectos().subscribe(
+    (proyectos) => {
+      this.proyectos = proyectos;
+    },
+    (error) => {
+      console.error('Error al cargar los proyectos:', error);
+    }
+  );
 
-     this.apiService.getDevelopers().subscribe(
-      (desarrolladores) => {
-        this.desarrolladores = desarrolladores;
-      },
-      (error) => {
-        console.error('Error al cargar los desarrolladores:', error);
-      }
-    );
-  }
+  this.apiService.getDevelopers().subscribe(
+    (desarrolladores) => {
+      // Filtrar desarrolladores que no tienen valores nulos
+      this.desarrolladores = desarrolladores.filter(
+        (dev) =>
+          dev.nombre !== null &&
+          dev.correo !== null &&
+          dev.fechaContratacion !== null
+      );
+    },
+    (error) => {
+      console.error('Error al cargar los desarrolladores:', error);
+    }
+  );
+}
+
 
   onSave(): void {
   if (this.form.valid) {
